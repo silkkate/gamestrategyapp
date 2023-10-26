@@ -7,6 +7,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <h1>Game Strategy Finder</h1>
       <input type="text" placeholder="Game Title"></input>
       <button>Get Strategy</button>
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
