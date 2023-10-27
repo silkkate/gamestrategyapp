@@ -2,26 +2,27 @@
 
 import Image from 'next/image'
 
-export default function Home() {
-  function getStrat () {
-    const gameTitleInput = document.getElementById("gameTitle");
-    const strategyButton = document.getElementById("strategyButton");
-    const gameTitle = gameTitleInput.value;
-    fetch("/test/route", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ gameTitle }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data.choices[0].text.trim());
-        let formattedText = data.choices[0].text.trim().replace(/\n/g, '<br>');
-        document.getElementById('gameStrategy').innerHTML = formattedText;
-    })
+function getStrat () {
+  const gameTitleInput = document.getElementById("gameTitle");
+  const strategyButton = document.getElementById("strategyButton");
+  const gameTitle = gameTitleInput.value;
+  fetch("/test/route", {
+      method: "POST",
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ gameTitle }),
+  })
+  .then(response => response.json())
+  .then(data => {
+      console.log(data.choices[0].text.trim());
+      let formattedText = data.choices[0].text.trim().replace(/\n/g, '<br>');
+      document.getElementById('gameStrategy').innerHTML = formattedText;
+  })
 }
-  }
+
+
+export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -135,3 +136,4 @@ export default function Home() {
       </div>
     </main>
   )
+}
