@@ -3,13 +3,31 @@
 import Image from 'next/image'
 
 export default function Home() {
-  
+  function getStrat () {
+    const gameTitleInput = document.getElementById("gameTitle");
+    const strategyButton = document.getElementById("strategyButton");
+    const gameTitle = gameTitleInput.value;
+    fetch("/test/route", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ gameTitle }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.choices[0].text.trim());
+        let formattedText = data.choices[0].text.trim().replace(/\n/g, '<br>');
+        document.getElementById('gameStrategy').innerHTML = formattedText;
+    })
+}
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <h1>Game Strategy Finder</h1>
-      <input type="text" placeholder="Game Title"></input>
-      <button>Get Strategy</button>
+      <input type="text" placeholder="Game Title" id="gameTitle"></input>
+      <button onClick={getStrat} id="strategyButton">Get Strategy</button>
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           Hello World&nbsp;
@@ -117,4 +135,3 @@ export default function Home() {
       </div>
     </main>
   )
-}
